@@ -25,7 +25,7 @@ const SEARCH_PATTERNS = [
 
 function extractQuantityAndItem(patterns: RegExp[], text: string): { quantity?: number; item: string } | null {
   const t = text.trim();
-  for (const p of ADD_PATTERNS) {
+  for (const p of patterns) {
     const m = t.match(p);
     if (m) {
       const q = m[1] ? parseInt(m[1], 10) : undefined;

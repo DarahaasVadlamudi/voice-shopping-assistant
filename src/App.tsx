@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { parseVoiceCommand } from './utils/nlp';
 import { useSpeechRecognition, LANGUAGES } from './hooks/useSpeechRecognition';
 import { useShoppingList } from './store/useShoppingList';
@@ -8,14 +8,15 @@ import { ShoppingList } from './components/ShoppingList';
 import { Suggestions } from './components/Suggestions';
 import { FeedbackBar } from './components/FeedbackBar';
 
-type Feedback = { message: string; type: 'success' | 'error' | 'info' } | null;
+type FeedbackPayload = { message: string; type: 'success' | 'error' | 'info' };
+type Feedback = FeedbackPayload | null;
 
 export default function App() {
-  const [feedback, setFeedback] = useState<Feedback>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterCategory, setFilterCategory] = useState<string | null>(null);
-  const [maxPriceFilter, setMaxPriceFilter] = useState<number | null>(null);
-  const [lang, setLang] = useState('en-US');
+  const [feedback, setFeedback] = React.useState<Feedback>(null);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [filterCategory, setFilterCategory] = React.useState<string | null>(null);
+  const [maxPriceFilter, setMaxPriceFilter] = React.useState<number | null>(null);
+  const [lang, setLang] = React.useState('en-US');
 
   const {
     items,
@@ -31,13 +32,13 @@ export default function App() {
   const listItemNames = items.map((i) => i.name);
   const suggestions = useSuggestions(history, listItemNames);
 
-  const showFeedback = useCallback((message: string, type: Feedback['type']) => {
+  const showFeedback = React.useCallback((message: string, type: FeedbackPayload['type']) => {
     setFeedback({ message, type });
     const t = setTimeout(() => setFeedback(null), 4000);
     return () => clearTimeout(t);
   }, []);
 
-  const handleVoiceResult = useCallback(
+  const handleVoiceResult = React.useCallback(
     (transcript: string) => {
       const action = parseVoiceCommand(transcript);
       if (action.type === 'add' && action.item) {
@@ -71,18 +72,18 @@ export default function App() {
     isSupported,
   } = useSpeechRecognition(handleVoiceResult, lang);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === 'processing') {
       const t = setTimeout(resetStatus, 800);
       return () => clearTimeout(t);
     }
   }, [status, resetStatus]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (error) showFeedback(error, 'error');
   }, [error, showFeedback]);
 
-  const handleSuggestionAdd = useCallback(
+  const handleSuggestionAdd = React.useCallback(
     (item: string) => {
       addItem(item);
       showFeedback(`Added ${item}`, 'success');

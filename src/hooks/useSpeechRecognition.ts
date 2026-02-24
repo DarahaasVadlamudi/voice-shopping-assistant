@@ -37,7 +37,8 @@ export function useSpeechRecognition(onResult: (transcript: string) => void, lan
     recognition.lang = lang;
     recognition.maxAlternatives = 1;
 
-    recognition.onresult = (event: SpeechRecognitionEvent) => {
+    recognition.onresult = (ev: Event) => {
+      const event = ev as SpeechRecognitionEvent;
       let final = '';
       let interim = '';
       for (let i = 0; i < event.results.length; i++) {
@@ -60,7 +61,8 @@ export function useSpeechRecognition(onResult: (transcript: string) => void, lan
       recognitionRef.current = null;
     };
 
-    recognition.onerror = (e: { error: string }) => {
+    recognition.onerror = (ev: Event) => {
+      const e = ev as SpeechRecognitionErrorEvent;
       if (e.error === 'aborted') return;
       setStatus('error');
       setError(e.error === 'no-speech' ? 'No speech detected. Try again.' : `Error: ${e.error}`);
