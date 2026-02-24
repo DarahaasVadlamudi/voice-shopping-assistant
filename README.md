@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Voice Command Shopping Assistant
 
 A voice-based shopping list manager with smart suggestions. Add, remove, and search items using natural speech (e.g. “Add milk”, “Remove bread”, “Find organic apples”). Optimized for mobile and voice-only use.
@@ -85,4 +84,4 @@ Voice recognition works in **Chrome** and **Edge** (desktop and Android). Safari
 A voice-driven shopping assistant that uses speech-to-text and basic NLP to understand commands, manage items, handle quantities, and offer simple suggestions. It provides a minimal UI with real-time feedback and is deployed on AWS for fast, reliable performance within a lightweight, scalable setup.
 It combines speech-to-text processing with lightweight NLP to understand flexible phrases such as “Add milk,” “I need apples,” or “Buy two packets of rice.” Users can add, remove, or update items, and the system automatically extracts quantities and categorizes items for a more organized list.
 The assistant includes a simple suggestion mechanism that recommends commonly purchased or relevant items based on basic patterns and recent activity. A clean, minimalist interface provides real-time visual feedback for every recognized command, ensuring the user always knows what the system understood.
->>>>>>> a11cb2be94a7ef9aa79e5542b71e1b6ba65c3067
+
